@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSub;
 
-import static frc.robot.Constants.*;
-
 public class Intake extends CommandBase {
   /** Creates a new Intake. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

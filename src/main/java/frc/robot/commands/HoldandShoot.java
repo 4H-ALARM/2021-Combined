@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 
 import frc.robot.subsystems.ShooterSub;
 
-import static frc.robot.Constants.*;
-
 
 public class HoldandShoot extends ParallelCommandGroup {
    /** Creates a new Aim. */

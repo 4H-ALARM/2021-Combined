@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSub;
 
-import static frc.robot.Constants.*;
-
 public class IntakeOff extends CommandBase {
   /** Creates a new IntakeOff. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})

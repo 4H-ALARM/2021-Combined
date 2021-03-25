@@ -9,14 +9,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSub;
 
-import static frc.robot.Constants.*;
-
 public class Feed extends CommandBase {
   /** Creates a new Feed. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSub m_subsystem;
-
-  private int countTime = 0;
 
   public Feed(ShooterSub subsystems) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,7 +28,6 @@ public class Feed extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.feederMotorOn();
-    countTime ++;
   }
 
   // Called once the command ends or is interrupted.

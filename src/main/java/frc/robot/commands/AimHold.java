@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSub;
 
-import static frc.robot.Constants.*;
 
 public class AimHold extends CommandBase {
   /** Creates a new AimHold. */
