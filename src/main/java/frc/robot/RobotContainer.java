@@ -17,9 +17,11 @@ import frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.Feed;
 import frc.robot.commands.FeedStop;
+import frc.robot.commands.HoldandShoot;
 import frc.robot.commands.Intake;
 import frc.robot.commands.IntakeOff;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.ShooterAllStop;
 import frc.robot.commands.StopShoot;
 import frc.robot.commands.Aim;
 import frc.robot.commands.AimToPos;
@@ -73,10 +75,17 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // 5 is the LB left back
     // for the shooter
+    /*
+    new JoystickButton(xboxController, k_LBbutton)
+    .whenPressed(new HoldandShoot(m_shootersub));
+    new JoystickButton(xboxController, k_LBbutton)
+    .whenReleased(new ShooterAllStop(m_shootersub));
+    */
     new JoystickButton(xboxController, k_LBbutton)
     .whenPressed(new Shoot(m_shootersub));
     new JoystickButton(xboxController, k_LBbutton)
     .whenReleased(new StopShoot(m_shootersub));
+  
     // 6 is the RB right back
     // for the feeder
     new JoystickButton(xboxController, k_RBbutton)

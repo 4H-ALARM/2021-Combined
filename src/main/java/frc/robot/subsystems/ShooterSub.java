@@ -1,8 +1,6 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-// test comment
+// the WPILib BSD license file in the root directory of this project
 
 package frc.robot.subsystems;
 
@@ -10,11 +8,9 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import edu.wpi.first.wpilibj.Encoder;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -25,70 +21,33 @@ public class ShooterSub extends SubsystemBase {
   /** Creates a new ShooterSub. */
   private final WPI_TalonFX upperMotor = new WPI_TalonFX(k_upperMotor);
   private final WPI_TalonFX lowerMotor = new WPI_TalonFX(k_lowerMotor);
-  //private final WPI_TalonSRX upperMotor = new WPI_TalonSRX(k_upperMotor);
-  //private final WPI_TalonSRX lowerMotor = new WPI_TalonSRX(k_lowerMotor);
   private final WPI_TalonSRX positionMotor = new WPI_TalonSRX(k_positionMotor);
   private final WPI_VictorSPX feedMotor = new WPI_VictorSPX(k_feedMotor);
-  private final Encoder m_encoder = new Encoder(k_encoderDIO_1, k_encoderDIO_2);
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(k_intakeMotor);
  
   
-  final int UnitsPerRevolution = k_UnitsPerRevolution; /* this is constant for Talon FX */
-
-	/**
-	 * Decide if positive motor-output/sensor-velocity should be when motor spins
-	 * clockwise or counter-clockwise.
-	 */
-  
-	final TalonFXInvertType kInvertType = TalonFXInvertType.CounterClockwise; // <<< What direction you want "forward/up" to be.
-
-	/** electic brake during neutral */
-  final NeutralMode kBrakeDurNeutral = NeutralMode.Brake;
-
-
   public ShooterSub() {
-    m_encoder.setDistancePerPulse(20);
-    m_encoder.setMinRate(50);
-    m_encoder.reset();
     // configurePositionMotor();
-    
-
-    // initiaize the talon fx
-    /* newer config API */
-		//	TalonFXConfiguration configs = new TalonFXConfiguration();
-			/* select integ-sensor for PID0 (it doesn't matter if PID is actually used) */
-			//configs.primaryPID.selectedFeedbackSensor = FeedbackDevice.IntegratedSensor;
-			/* config all the settings */
-    //  upperMotor.configAllSettings(configs);
-     // lowerMotor.configAllSettings(configs);
+ 
   }
 
   @Override
   public void periodic() {
-    System.out.println(positionMotor.getSelectedSensorPosition());
-
     // This method will be called once per scheduler run
-  }
 
-  // get the encoder 
-  public int encoderValue() {
-    return m_encoder.getRaw();
+    System.out.println(positionMotor.getSelectedSensorPosition());
   }
 
   // turns on the upper and lower motor of shooter
   public void shooterMotorOn() {
     upperMotor.set(ControlMode.PercentOutput, -1.0);
     lowerMotor.set(ControlMode.PercentOutput,-1.0);
-    //upperMotor.set(1.0);
-    //lowerMotor.set(-1.0);
   }
 
   // turns off the upper and lower motor of the shooter
   public void shooterMotorOff() {
     upperMotor.set(ControlMode.PercentOutput, 0.0);
     lowerMotor.set(ControlMode.PercentOutput, 0.0);
-    //upperMotor.stopMotor();
-    //lowerMotor.stopMotor();
   }
 
   // turns on feeder motor
@@ -135,8 +94,6 @@ public class ShooterSub extends SubsystemBase {
   public void allOff() {
     upperMotor.set(ControlMode.PercentOutput, 0.0);
     lowerMotor.set(ControlMode.PercentOutput, 0.0);
-    //upperMotor.stopMotor();
-    //lowerMotor.stopMotor();
     feedMotor.stopMotor();
     positionMotor.stopMotor();
   }
