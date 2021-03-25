@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
-
+import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -45,10 +45,13 @@ public class ShooterSub extends SubsystemBase {
 	/** electic brake during neutral */
   final NeutralMode kBrakeDurNeutral = NeutralMode.Brake;
 
+
   public ShooterSub() {
     m_encoder.setDistancePerPulse(20);
     m_encoder.setMinRate(50);
     m_encoder.reset();
+    // configurePositionMotor();
+    
 
     // initiaize the talon fx
     /* newer config API */
@@ -131,5 +134,15 @@ public class ShooterSub extends SubsystemBase {
     //lowerMotor.stopMotor();
     feedMotor.stopMotor();
     positionMotor.stopMotor();
+  }
+
+  private void configurePositionMotor() {
+    
+    positionMotor.setInverted(true);
+    positionMotor.config_kP(k_AimFeedBackId, k_AimP);
+    positionMotor.config_kI(k_AimFeedBackId, k_AimI);
+    positionMotor.config_kD(k_AimFeedBackId, k_AimD);
+    positionMotor.setNeutralMode(NeutralMode.Brake);
+    positionMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.Analog,k_AimFeedBackId,0);
   }
 }

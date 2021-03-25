@@ -47,5 +47,12 @@ public final class Constants {
     public final static double k_aimSpeedDown = -0.1;
     public final static double k_aimSpeedUp = 0.5;
 
+    // aimer configuration 
+    public final static int k_AimFeedBackId = 0;
+    public final static double k_AimP = 0.0;
+    public final static double k_AimI = 0.0;
+    public final static double k_AimD = 0.0;
+    
+
 
 }
