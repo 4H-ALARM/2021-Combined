@@ -111,7 +111,7 @@ public class ShooterSub extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
-  // turns on position motor at specific position
+  // turns on position motor to move at a speed
   public void positionMotorOn(double speed) {
     positionMotor.set(ControlMode.PercentOutput, speed);
   }
@@ -119,7 +119,12 @@ public class ShooterSub extends SubsystemBase {
   // turns on position motor at specific position
   public void positionMotorOnAim(double position) {
     positionMotor.set(ControlMode.Position, position);
-    System.out.println("Test2");
+  }
+
+  // holds the position motor at current position
+  public void positionMotorHold() {
+    double position = positionMotor.getSelectedSensorPosition();
+    positionMotor.set(ControlMode.Position, position);
   }
   // turns off position motor
   public void positionMotorOff() {
