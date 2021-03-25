@@ -100,7 +100,8 @@ public class ShooterSub extends SubsystemBase {
 
   private void configurePositionMotor() {
     
-    positionMotor.setInverted(true);
+    positionMotor.setInverted(false);
+    positionMotor.setSensorPhase(true);
     positionMotor.config_kP(k_AimFeedBackId, k_AimP);
     positionMotor.config_kI(k_AimFeedBackId, k_AimI);
     positionMotor.config_kD(k_AimFeedBackId, k_AimD);
