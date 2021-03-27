@@ -52,7 +52,10 @@ public final class Constants {
     public final static double k_AimP = 11.0;
     public final static double k_AimI = 0.001;
     public final static double k_AimD = 0.0;
-    
+    public final static double K_WindFactor = 60; 
+    public final static double K_MAX = -1000;
+    public final static double K_MED = -1017.5;
+    public final static double K_MIN = -1035;
 
 
 }

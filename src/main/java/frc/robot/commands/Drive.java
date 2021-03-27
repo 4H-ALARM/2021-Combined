@@ -33,7 +33,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSub.drive(leftSpeed.getAsDouble() *-1, rightSpeed.getAsDouble() *-1);
+    driveSub.drive(leftSpeed.getAsDouble() , rightSpeed.getAsDouble() );
   }
 
   // Called once the command ends or is interrupted.

@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import javax.swing.text.Position;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSub;
@@ -12,10 +14,11 @@ public class AimToPos extends CommandBase {
   /** Creates a new Aim. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSub m_subsystem;
+  int isy;
 
-
-  public AimToPos(ShooterSub subsystems, Boolean UP) {
+  public AimToPos(ShooterSub subsystems, int isy) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.isy = isy;
     m_subsystem = subsystems;
     addRequirements(m_subsystem);
   }
@@ -27,7 +30,7 @@ public class AimToPos extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.positionMotorOnAim(940);
+    m_subsystem.positionMotorOnAim(isy);
   }
 
   // Called once the command ends or is interrupted.

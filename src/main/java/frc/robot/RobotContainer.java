@@ -100,21 +100,21 @@ public class RobotContainer {
     .whenReleased(new IntakeOff(m_shootersub));
     // 4 is for the Y
     // aims it up when true and down if false
-    new JoystickButton(xboxController, k_Abutton)
-    .whenPressed(new Aim(m_shootersub, true));
-    new JoystickButton(xboxController, k_Ybutton)
-    .whenReleased(new StopAim(m_shootersub));
+    //new JoystickButton(xboxController, k_Abutton)
+    //.whenPressed(new Aim(m_shootersub, true));
+    //new JoystickButton(xboxController, k_Ybutton) 
+    //.whenReleased(new StopAim(m_shootersub)); 
     // 1 is for A
     // aims it down
     new JoystickButton(xboxController, k_Ybutton)
-    .whenPressed(new Aim(m_shootersub, false));
+    .whenPressed(new AimToPos(m_shootersub, 1));
     new JoystickButton(xboxController, k_Abutton)
-    .whenReleased(new StopAim(m_shootersub));
+    .whenPressed(new AimToPos(m_shootersub, 0));
 
-    new JoystickButton(xboxController, k_Xbutton)
-    .whenPressed(new AimToPos(m_shootersub, false));
-    new JoystickButton(xboxController, k_Xbutton)
-    .whenReleased(new StopAim(m_shootersub));
+    //new JoystickButton(xboxController, k_Xbutton)
+   // .whenPressed(new AimToPos(m_shootersub, false));
+   // new JoystickButton(xboxController, k_Xbutton)
+   // .whenReleased(new StopAim(m_shootersub));
 
     
     

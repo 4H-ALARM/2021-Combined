@@ -24,18 +24,21 @@ public class ShooterSub extends SubsystemBase {
   private final WPI_TalonSRX positionMotor = new WPI_TalonSRX(k_positionMotor);
   private final WPI_VictorSPX feedMotor = new WPI_VictorSPX(k_feedMotor);
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(k_intakeMotor);
- 
+  int wasY = 1; // -1 = not moved and not used; 0 = isX; 1 = isY
+  static double position = 0; // position of lifter 
+  static double targetPosition;
   
   public ShooterSub() {
-    // configurePositionMotor();
- 
+    configurePositionMotor();
+    targetPosition = positionMotor.getSelectedSensorPosition();
+
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
 
-    System.out.println(positionMotor.getSelectedSensorPosition());
+    // System.out.println(positionMotor.getSelectedSensorPosition());
   }
 
   // turns on the upper and lower motor of shooter
@@ -76,8 +79,34 @@ public class ShooterSub extends SubsystemBase {
   }
   
   // turns on position motor at specific position
-  public void positionMotorOnAim(double position) {
-    positionMotor.set(ControlMode.Position, position);
+  public void positionMotorOnAim(int isY) {
+
+    if(wasY == isY){ // Does not need to wind
+      if (isY == 1){ // wind up
+        if(targetPosition < -1000){
+          targetPosition -= 0.0001;
+        }
+        if(targetPosition > -1035){
+          targetPosition += 0.0001;
+        }
+      } 
+      else{ // wind down
+        targetPosition += 0.0001;
+      }
+      positionMotor.set(ControlMode.Position,targetPosition);
+    }
+    else{ 
+      position = positionMotor.getSelectedSensorPosition();
+      if (isY == 1){ // wind up
+        positionMotor.set(ControlMode.Position, (position - K_WindFactor));
+      } 
+      else{ // wind down
+        positionMotor.set(ControlMode.Position, (position + K_WindFactor));
+
+      }
+    }
+    System.out.println(targetPosition);
+   
   }
 
   // holds the position motor at current position
@@ -100,7 +129,7 @@ public class ShooterSub extends SubsystemBase {
 
   private void configurePositionMotor() {
     
-    positionMotor.setInverted(false);
+    //positionMotor.setInverted(true);
     positionMotor.setSensorPhase(true);
     positionMotor.config_kP(k_AimFeedBackId, k_AimP);
     positionMotor.config_kI(k_AimFeedBackId, k_AimI);
