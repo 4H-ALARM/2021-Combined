@@ -20,9 +20,12 @@ import frc.robot.commands.FeedStop;
 import frc.robot.commands.HoldandShoot;
 import frc.robot.commands.Intake;
 import frc.robot.commands.IntakeOff;
+import frc.robot.commands.SetShuffle;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.ShooterAllStop;
 import frc.robot.commands.StopShoot;
+import frc.robot.commands.UpFlag;
+import frc.robot.commands.DownFlag;
 import frc.robot.commands.Aim;
 import frc.robot.commands.AimToPos;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -107,14 +110,12 @@ public class RobotContainer {
     // 1 is for A
     // aims it down
     new JoystickButton(xboxController, k_Ybutton)
-    .whenPressed(new AimToPos(m_shootersub, 1));
+    .whenPressed(new UpFlag(m_shootersub));
     new JoystickButton(xboxController, k_Abutton)
-    .whenPressed(new AimToPos(m_shootersub, 0));
+    .whenPressed(new DownFlag(m_shootersub));
 
-    //new JoystickButton(xboxController, k_Xbutton)
-   // .whenPressed(new AimToPos(m_shootersub, false));
-   // new JoystickButton(xboxController, k_Xbutton)
-   // .whenReleased(new StopAim(m_shootersub));
+    new JoystickButton(xboxController, k_Xbutton)
+    .whenPressed(new SetShuffle(m_shootersub));
 
     
     

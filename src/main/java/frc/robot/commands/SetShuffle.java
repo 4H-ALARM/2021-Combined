@@ -4,21 +4,17 @@
 
 package frc.robot.commands;
 
-import javax.swing.text.Position;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.ShooterSub;
 
-public class AimToPos extends CommandBase {
-  /** Creates a new Aim. */
+public class SetShuffle extends CommandBase {
+  /** Creates a new Shoot. */
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSub m_subsystem;
-  boolean isUp;
 
-  public AimToPos(ShooterSub subsystems, Boolean isUp) {
+  public SetShuffle(ShooterSub subsystems) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.isUp = isUp;
     m_subsystem = subsystems;
     addRequirements(m_subsystem);
   }
@@ -30,7 +26,7 @@ public class AimToPos extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //m_subsystem.positionMotorOnAim(isUp); 
+    m_subsystem.Shuffle();
   }
 
   // Called once the command ends or is interrupted.
@@ -40,6 +36,6 @@ public class AimToPos extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

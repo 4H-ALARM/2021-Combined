@@ -24,27 +24,69 @@ public class ShooterSub extends SubsystemBase {
   private final WPI_TalonSRX positionMotor = new WPI_TalonSRX(k_positionMotor);
   private final WPI_VictorSPX feedMotor = new WPI_VictorSPX(k_feedMotor);
   private final WPI_VictorSPX intakeMotor = new WPI_VictorSPX(k_intakeMotor);
-  int wasY = 1; // -1 = not moved and not used; 0 = isX; 1 = isY
+  /*static boolean wasUp = true; // -1 = not moved and not used; 0 = isX; 1 = isY
   static double position = 0; // position of lifter 
   static double targetPosition;
-  
+  static boolean firstCall = true;
+  */ // for aiming to pos
+  static int count = 0;
+  boolean upFlag = false;
+  boolean downFlag = false;
+  double targetPosition = k_targetPositions[0];
+  int currentPos = 0;
+
+
   public ShooterSub() {
     configurePositionMotor();
-    targetPosition = positionMotor.getSelectedSensorPosition();
-
+    //targetPosition = positionMotor.getSelectedSensorPosition();
+    System.out.println(positionMotor.getSelectedSensorPosition());
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (count <= 5){
+      positionMotor.set(ControlMode.PercentOutput, 0);
+      count += 1;
+    }
+    else{
 
+      if(upFlag){
+        positionMotor.set(ControlMode.PercentOutput, -1);
+        targetPosition -= 1;
+      }
+      else if(downFlag){
+        positionMotor.set(ControlMode.PercentOutput, 1);
+        targetPosition += 1;
+      }
+
+      else {
+        double position = positionMotor.getSelectedSensorPosition();
+
+        if (position <= targetPosition - 2){
+        positionMotor.set(ControlMode.PercentOutput, 1);
+        }
+        else if (position >= targetPosition + 2){
+        positionMotor.set(ControlMode.PercentOutput, -1);
+        }
+      }
+
+
+
+      System.out.println(targetPosition);
+
+      upFlag = false;
+      downFlag = false;
+      count = 0;
+    }
+
+    // This method will be called once per scheduler run
     // System.out.println(positionMotor.getSelectedSensorPosition());
   }
 
   // turns on the upper and lower motor of shooter
-  public void shooterMotorOn() {
-    upperMotor.set(ControlMode.PercentOutput, -1.0);
-    lowerMotor.set(ControlMode.PercentOutput,-1.0);
+  public void shooterMotorOn( ) {
+    upperMotor.set(ControlMode.PercentOutput,-1);
+    lowerMotor.set(ControlMode.PercentOutput,-1);
   }
 
   // turns off the upper and lower motor of the shooter
@@ -77,38 +119,64 @@ public class ShooterSub extends SubsystemBase {
   public void positionMotorOn(double speed) {
     positionMotor.set(ControlMode.PercentOutput, speed);
   }
-  
-  // turns on position motor at specific position
-  public void positionMotorOnAim(int isY) {
 
-    if(wasY == isY){ // Does not need to wind
-      if (isY == 1){ // wind up
-        if(targetPosition < -1000){
-          targetPosition -= 0.0001;
-        }
-        if(targetPosition > -1035){
-          targetPosition += 0.0001;
-        }
-      } 
-      else{ // wind down
-        targetPosition += 0.0001;
-      }
-      positionMotor.set(ControlMode.Position,targetPosition);
+  // Change motor speed
+  public void Shuffle(){
+    if(currentPos == 2){
+      currentPos = 0;
     }
-    else{ 
-      position = positionMotor.getSelectedSensorPosition();
-      if (isY == 1){ // wind up
-        positionMotor.set(ControlMode.Position, (position - K_WindFactor));
-      } 
-      else{ // wind down
-        positionMotor.set(ControlMode.Position, (position + K_WindFactor));
-
-      }
+    else{
+      currentPos += 1;
     }
-    System.out.println(targetPosition);
-   
+    targetPosition = k_targetPositions[currentPos];
   }
 
+  public void SetFlags(Boolean whatflag){
+    if(whatflag){
+      upFlag = true;
+      System.out.println("IM ON **************");
+    }
+    else{
+      downFlag = true;
+    }
+  }
+  
+  // turns on position motor at specific position 
+  /*public void positionMotorOnAim(Boolean isUp) { // Not used
+    if(firstCall){
+      targetPosition = positionMotor.getSelectedSensorPosition();
+      firstCall = false;
+    }
+
+    if ((isUp && targetPosition > -1060) || (!isUp && targetPosition < -1020)){ // Safe position
+      
+      if(isUp == wasUp){ // do not need to wind
+        if(isUp){
+          targetPosition -= 0.01; // wind up
+        }
+        else{
+          targetPosition += 0.01; // wind down 
+        }
+        positionMotor.set(ControlMode.Position,targetPosition);
+      }
+
+
+      else{ // Does need to wind
+        position = positionMotor.getSelectedSensorPosition();
+        if(isUp){
+          positionMotor.set(ControlMode.Position, (position - K_WindFactor)); // wind up   
+        }
+        else{
+          //positionMotor.set(ControlMode.Position, (position + K_WindFactor)); // wind down
+        }
+      }
+    }
+    wasUp = isUp;
+    System.out.print(targetPosition);
+    System.out.print(isUp);
+    System.out.println(positionMotor.getSelectedSensorPosition());
+  }
+  */
   // holds the position motor at current position
   public void positionMotorHold() {
     double position = positionMotor.getSelectedSensorPosition();
@@ -130,11 +198,41 @@ public class ShooterSub extends SubsystemBase {
   private void configurePositionMotor() {
     
     //positionMotor.setInverted(true);
+    positionMotor.configPeakOutputForward(k_AimPeakForOutput);
+    positionMotor.configPeakOutputReverse(k_AimPeakRevOutput);
     positionMotor.setSensorPhase(true);
-    positionMotor.config_kP(k_AimFeedBackId, k_AimP);
-    positionMotor.config_kI(k_AimFeedBackId, k_AimI);
-    positionMotor.config_kD(k_AimFeedBackId, k_AimD);
+    positionMotor.config_kP(k_AimSlotIdx, k_AimP);
+    positionMotor.config_kI(k_AimSlotIdx, k_AimI);
+    positionMotor.config_kD(k_AimSlotIdx, k_AimD);
+    positionMotor.configAllowableClosedloopError(k_AimSlotIdx, k_allowableClosedLoopError);
     positionMotor.setNeutralMode(NeutralMode.Brake);
-    positionMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.Analog,k_AimFeedBackId,0);
+    positionMotor.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.Analog,k_AimSlotIdx,0);
   }
 }
+/*
+
+    if(wasY == isY){ // Does not need to wind
+      if (isY == 1){ // wind up
+        if(targetPosition < -1000){
+          targetPosition -= 0.0001;
+        }
+        if(targetPosition > -1035){
+          targetPosition += 0.0001;
+        }
+      } 
+      else{
+        targetPosition += 0.0001;
+      }
+      positionMotor.set(ControlMode.Position,targetPosition);
+    }
+    else{ 
+      position = positionMotor.getSelectedSensorPosition();
+      if (isY == 1){ // wind up
+        positionMotor.set(ControlMode.Position, (position - K_WindFactor));
+      } 
+      else{ // wind down
+        positionMotor.set(ControlMode.Position, (position + K_WindFactor));
+
+      }
+    }
+    */

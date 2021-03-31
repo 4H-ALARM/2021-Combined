@@ -45,17 +45,22 @@ public final class Constants {
     public final static int k_UnitsPerRevolution = 2048;
     // speed settings
     public final static double k_aimSpeedDown = -0.1;
-    public final static double k_aimSpeedUp = 0.5;
+    public final static double k_aimSpeedUp = 0.55;
 
     // aimer configuration 
-    public final static int k_AimFeedBackId = 0;
-    public final static double k_AimP = 11.0;
-    public final static double k_AimI = 0.001;
+    public final static int k_AimSlotIdx = 0;
+    public final static double k_AimP = 100.0;
+    public final static double k_AimI = 0.10;
     public final static double k_AimD = 0.0;
     public final static double K_WindFactor = 60; 
     public final static double K_MAX = -1000;
     public final static double K_MED = -1017.5;
     public final static double K_MIN = -1035;
+    public final static double k_allowableClosedLoopError = 2;
+    public final static double k_AimPeakForOutput = 0.2;
+    public final static double k_AimPeakRevOutput = -0.6;
+
+    public final static double k_targetPositions[] = {-1025,-1035,-1045};
 
 
 }
