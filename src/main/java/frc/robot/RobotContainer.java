@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.Feed;
 import frc.robot.commands.FeedStop;
 import frc.robot.commands.HoldandShoot;
+import frc.robot.commands.IntakeToggle;
 import frc.robot.commands.Intake;
 import frc.robot.commands.IntakeOff;
 import frc.robot.commands.SetShuffle;
@@ -25,6 +26,7 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.ShooterAllStop;
 import frc.robot.commands.StopShoot;
 import frc.robot.commands.UpFlag;
+import frc.robot.commands.TuneSpeed;
 import frc.robot.commands.DownFlag;
 import frc.robot.commands.Aim;
 import frc.robot.commands.AimToPos;
@@ -98,9 +100,9 @@ public class RobotContainer {
     // 2 is the B button
     // for the intake motor
     new JoystickButton(xboxController, k_Bbutton)
-    .whenPressed(new Intake(m_shootersub));
-    new JoystickButton(xboxController, k_Bbutton)
-    .whenReleased(new IntakeOff(m_shootersub));
+    .whenPressed(new IntakeToggle(m_shootersub));
+    //new JoystickButton(xboxController, k_Bbutton)
+    //.whenReleased(new IntakeOff(m_shootersub));
     // 4 is for the Y
     // aims it up when true and down if false
     //new JoystickButton(xboxController, k_Abutton)
@@ -117,8 +119,12 @@ public class RobotContainer {
     new JoystickButton(xboxController, k_Xbutton)
     .whenPressed(new SetShuffle(m_shootersub));
 
-    
-    
+    // Set speeds
+    new JoystickButton(xboxController, 9)
+    .whenPressed(new TuneSpeed(m_shootersub, true));
+    new JoystickButton(xboxController, 10)
+    .whenPressed(new TuneSpeed(m_shootersub, false));
+
   }
 
   /**

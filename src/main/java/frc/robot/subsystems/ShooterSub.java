@@ -32,8 +32,11 @@ public class ShooterSub extends SubsystemBase {
   static int count = 0;
   boolean upFlag = false;
   boolean downFlag = false;
+  boolean intakeMotorToggle = false;
   double targetPosition = k_targetPositions[0];
   int currentPos = 0;
+  double customSpeed;
+
 
 
   public ShooterSub() {
@@ -49,19 +52,22 @@ public class ShooterSub extends SubsystemBase {
       count += 1;
     }
     else{
+      double position = positionMotor.getSelectedSensorPosition();
 
       if(upFlag){
-        positionMotor.set(ControlMode.PercentOutput, -1);
-        targetPosition -= 1;
+        if(position >= k_maxLimit){
+          positionMotor.set(ControlMode.PercentOutput, -1);
+          targetPosition -= 1;
+        }
       }
       else if(downFlag){
-        positionMotor.set(ControlMode.PercentOutput, 1);
-        targetPosition += 1;
+        if(position <= k_minLimit){
+          positionMotor.set(ControlMode.PercentOutput, 1);
+          targetPosition += 1;
+        }
       }
 
       else {
-        double position = positionMotor.getSelectedSensorPosition();
-
         if (position <= targetPosition - 2){
         positionMotor.set(ControlMode.PercentOutput, 1);
         }
@@ -72,7 +78,8 @@ public class ShooterSub extends SubsystemBase {
 
 
 
-      System.out.println(targetPosition);
+      System.out.println(customSpeed);//targetPosition
+
 
       upFlag = false;
       downFlag = false;
@@ -85,8 +92,8 @@ public class ShooterSub extends SubsystemBase {
 
   // turns on the upper and lower motor of shooter
   public void shooterMotorOn( ) {
-    upperMotor.set(ControlMode.PercentOutput,-1);
-    lowerMotor.set(ControlMode.PercentOutput,-1);
+    upperMotor.set(ControlMode.Velocity, customSpeed);
+    lowerMotor.set(ControlMode.Velocity, customSpeed);
   }
 
   // turns off the upper and lower motor of the shooter
@@ -98,6 +105,26 @@ public class ShooterSub extends SubsystemBase {
   // turns on feeder motor
   public void feederMotorOn() {
     feedMotor.set(0.5);
+  }
+
+  public void IntakeToggle() {
+    if(intakeMotorToggle == true){
+      intakeMotorToggle = false;
+      intakeMotor.set(-1);
+    }
+    else{
+      intakeMotorToggle = true;
+      intakeMotor.stopMotor();
+    }
+  }
+
+  public void modifySpeed(boolean upOrDown) {
+    if(upOrDown){
+      customSpeed += k_shooterSpeedStep;
+    }
+    else{
+      customSpeed -= k_shooterSpeedStep;
+    }
   }
 
   // turns feeder motor off
@@ -129,6 +156,8 @@ public class ShooterSub extends SubsystemBase {
       currentPos += 1;
     }
     targetPosition = k_targetPositions[currentPos];
+    customSpeed = k_ShooterSpeed[currentPos];
+
   }
 
   public void SetFlags(Boolean whatflag){

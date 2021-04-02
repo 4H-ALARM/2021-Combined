@@ -36,6 +36,8 @@ public final class Constants {
     public final static int k_Abutton = 1;
     public final static int k_Xbutton = 3;
     public final static int k_Bbutton = 2;
+    public final static int k_LJDbutton = 9;
+    public final static int k_RJDbutton = 10;
     // feed count 
     public final static int k_feedCount = 100;
     // drive straight gyro reading constants
@@ -61,6 +63,11 @@ public final class Constants {
     public final static double k_AimPeakRevOutput = -0.6;
 
     public final static double k_targetPositions[] = {-1025,-1035,-1045};
+    public final static double k_ShooterSpeed[] = {550,700,1000};
 
+    public final static double k_maxLimit = -1060;
+    public final static double k_minLimit = -1020;
+
+    public final static double k_shooterSpeedStep = 10;
 
 }
