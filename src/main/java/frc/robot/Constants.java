@@ -62,11 +62,11 @@ public final class Constants {
     public final static double k_AimPeakForOutput = 0.2;
     public final static double k_AimPeakRevOutput = -0.6;
 
-    public final static double k_targetPositions[] = {-1025,-1035,-1045};
-    public final static double k_ShooterSpeed[] = {550,700,1000};
+    public final static double k_targetPositions[] = {-1065,-1075,-1085};
+    public final static double k_ShooterSpeed[] = {-550,-700,-1000};
 
-    public final static double k_maxLimit = -1060;
-    public final static double k_minLimit = -1020;
+    public final static double k_maxLimit = -1100;
+    public final static double k_minLimit = -1060;
 
     public final static double k_shooterSpeedStep = 10;
 

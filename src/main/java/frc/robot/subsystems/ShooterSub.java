@@ -35,7 +35,7 @@ public class ShooterSub extends SubsystemBase {
   boolean intakeMotorToggle = false;
   double targetPosition = k_targetPositions[0];
   int currentPos = 0;
-  double customSpeed;
+  double customSpeed = -1000;
 
 
 
