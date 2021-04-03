@@ -78,7 +78,8 @@ public class ShooterSub extends SubsystemBase {
 
 
 
-      System.out.println(customSpeed);//targetPosition
+      System.out.println("Speed: "+ customSpeed + " position: " + position);//targetPosition
+      System.out.println("");
 
 
       upFlag = false;
@@ -104,7 +105,7 @@ public class ShooterSub extends SubsystemBase {
 
   // turns on feeder motor
   public void feederMotorOn() {
-    feedMotor.set(0.5);
+    feedMotor.set(1);
   }
 
   public void IntakeToggle() {
