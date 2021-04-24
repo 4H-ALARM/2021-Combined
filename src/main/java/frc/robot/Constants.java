@@ -14,21 +14,22 @@ package frc.robot;
  */
 public final class Constants {
     // drive talons
-    public final static int k_leftFrontDriveTalon = 8;
-    public final static int k_leftRearDriveTalon = 11;
+    public final static int k_leftFrontDriveTalon = 3;
+    public final static int k_leftRearDriveTalon = 4;
     public final static int k_rightFrontDriveTalon = 6;
-    public final static int k_rightRearDriveTalon = 2;
+    public final static int k_rightRearDriveTalon = 7;
     //shooter talons
-    public final static int k_upperMotor = 3;
-    public final static int k_lowerMotor = 4;
+    public final static int k_upperMotor = 8;
+    public final static int k_lowerMotor = 11;
     public final static int k_positionMotor = 5;
-    public final static int k_feedMotor = 7;
+    public final static int k_feedMotor = 2;
     public final static int k_intakeMotor = 10;
     // encoder
     public final static int k_encoderDIO_1 = 0;
     public final static int k_encoderDIO_2 = 1;
     // xbox controller usb port
-    public final static int k_xboxController = 0;
+    public final static int k_joystick = 0;
+    //public final static int k_xboxController = 0;
     // joystick control buttons
     public final static int k_LBbutton = 5;
     public final static int k_RBbutton = 6;

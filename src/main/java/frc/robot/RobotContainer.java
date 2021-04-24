@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ExampleCommand;
@@ -28,6 +29,7 @@ import frc.robot.commands.AimToPos;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.StopAim;
 import static frc.robot.Constants.*;
+import frc.robot.commands.JoystickDrive;
 
 // added ths comment as a test of source control
 
@@ -51,9 +53,10 @@ public class RobotContainer {
 
   private final AutoDriveDS m_aDS = new AutoDriveDS(m_drivesub);
 
-  private final XboxController xboxController = new XboxController(k_xboxController);
+  //private final XboxController xboxController = new XboxController(k_xboxController);
+  private final Joystick joyStick = new Joystick(k_joystick);
 
-  private final Drive driveCommand;
+  private final JoystickDrive driveCommand;
 
 
 
@@ -62,8 +65,11 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    driveCommand = new Drive(m_drivesub, () -> xboxController.getY(Hand.kLeft), () -> xboxController.getY(Hand.kRight));
-  m_drivesub.setDefaultCommand(driveCommand);
+    driveCommand = new JoystickDrive(m_drivesub, () -> joyStick.getY(), () -> joyStick.getX());
+    
+
+    //driveCommand = new Drive(m_drivesub, () -> xboxController.getY(Hand.kLeft), () -> xboxController.getY(Hand.kRight));
+    m_drivesub.setDefaultCommand(driveCommand);
   }
 
   /**
@@ -81,7 +87,7 @@ public class RobotContainer {
     new JoystickButton(xboxController, k_LBbutton)
     .whenReleased(new ShooterAllStop(m_shootersub));
     */
-    new JoystickButton(xboxController, k_LBbutton)
+    /*new JoystickButton(xboxController, k_LBbutton)
     .whenPressed(new Shoot(m_shootersub));
     new JoystickButton(xboxController, k_LBbutton)
     .whenReleased(new StopShoot(m_shootersub));
@@ -116,7 +122,7 @@ public class RobotContainer {
    // new JoystickButton(xboxController, k_Xbutton)
    // .whenReleased(new StopAim(m_shootersub));
 
-    
+  */
     
   }
 

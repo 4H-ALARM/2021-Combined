@@ -16,11 +16,15 @@ import static frc.robot.Constants.*;
 
 public class DriveSub extends SubsystemBase {
   /** Creates a new DriveSub. */
-  private final WPI_VictorSPX leftFrontDrive = new WPI_VictorSPX(k_leftFrontDriveTalon);
-  private final WPI_VictorSPX leftRearDrive = new WPI_VictorSPX(k_leftRearDriveTalon);
+  //private final WPI_VictorSPX leftFrontDrive = new WPI_VictorSPX(k_leftFrontDriveTalon);
+  private final WPI_TalonSRX leftFrontDrive = new WPI_TalonSRX(k_leftFrontDriveTalon);
+  //private final WPI_VictorSPX leftRearDrive = new WPI_VictorSPX(k_leftRearDriveTalon);
+  private final WPI_TalonSRX leftRearDrive = new WPI_TalonSRX(k_leftRearDriveTalon);
   private final SpeedControllerGroup m_left = new SpeedControllerGroup(leftFrontDrive, leftRearDrive);
-  private final WPI_VictorSPX rightFrontDrive = new WPI_VictorSPX(k_rightFrontDriveTalon);
-  private final WPI_VictorSPX rightRearDrive = new WPI_VictorSPX(k_rightRearDriveTalon);
+  //private final WPI_VictorSPX rightFrontDrive = new WPI_VictorSPX(k_rightFrontDriveTalon);
+  private final WPI_TalonSRX rightFrontDrive = new WPI_TalonSRX(k_rightFrontDriveTalon);
+  //private final WPI_VictorSPX rightRearDrive = new WPI_VictorSPX(k_rightRearDriveTalon);
+  private final WPI_TalonSRX rightRearDrive = new WPI_TalonSRX(k_rightRearDriveTalon);
   private final SpeedControllerGroup m_right = new SpeedControllerGroup(rightFrontDrive, rightRearDrive);
   private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_left, m_right); 
 
@@ -55,6 +59,12 @@ public class DriveSub extends SubsystemBase {
   public void drive(final double lSpeed, final double rSpeed) {
     m_robotDrive.tankDrive(lSpeed, rSpeed, true);
    }
+
+   //drive with arcade drive 
+   public void arcade_drive(double y_pos, double x_pos){
+      m_robotDrive.arcadeDrive(y_pos, x_pos);
+   }
+
    
 
   @Override
