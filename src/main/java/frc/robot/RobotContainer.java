@@ -28,6 +28,8 @@ import frc.robot.commands.Aim;
 import frc.robot.commands.AimToPos;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.StopAim;
+import frc.robot.commands.StopDrive;
+
 import static frc.robot.Constants.*;
 import frc.robot.commands.JoystickDrive;
 
@@ -79,6 +81,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    new JoystickButton(joyStick, k_driveStraightButton)
+    .whenPressed(new DriveStraight(m_drivesub));
+    new JoystickButton(joyStick, k_driveStraightButton)
+    .whenReleased(new StopDrive(m_drivesub));
+    
+    
     // 5 is the LB left back
     // for the shooter
     /*

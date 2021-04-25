@@ -57,6 +57,8 @@ public final class Constants {
     public final static double K_MAX = -1000;
     public final static double K_MED = -1017.5;
     public final static double K_MIN = -1035;
+    // joystick buttons
+    public final static int k_driveStraightButton = 2;
 
 
 }
