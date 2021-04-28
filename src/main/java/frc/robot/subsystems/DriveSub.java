@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 import static frc.robot.Constants.*;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 public class DriveSub extends SubsystemBase {
   /** Creates a new DriveSub. */
   //private final WPI_VictorSPX leftFrontDrive = new WPI_VictorSPX(k_leftFrontDriveTalon);
@@ -72,6 +74,8 @@ public class DriveSub extends SubsystemBase {
 
     m_gyroReading = m_gyro.getAngle();
 
+    updateDash();
+
    /* // This method will be called once per scheduler run
     double gyroAng = m_gyro.getAngle();
 
@@ -86,6 +90,11 @@ public class DriveSub extends SubsystemBase {
     System.out.println(df.format(gyroRate));
     */
   
+  }
+
+  private void updateDash(){
+    SmartDashboard.putNumber("gyro Measurement", m_gyro.getAngle());
+    SmartDashboard.putNumber("left speed", m_robotDrive.get());
   }
 
 }
