@@ -94,7 +94,7 @@ public class DriveSub extends SubsystemBase {
 
   private void updateDash(){
     SmartDashboard.putNumber("gyro Measurement", m_gyro.getAngle());
-    SmartDashboard.putNumber("left speed", m_robotDrive.get());
+    //SmartDashboard.putNumber("left speed", m_robotDrive.get());
   }
 
 }
