@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import static frc.robot.Constants.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.lang.Math;
 
 public class DriveSub extends SubsystemBase {
   /** Creates a new DriveSub. */
@@ -96,7 +97,6 @@ public class DriveSub extends SubsystemBase {
     SmartDashboard.putNumber("gyro Measurement", m_gyro.getAngle());
     SmartDashboard.putNumber("left speed", m_left.get());
     SmartDashboard.putNumber("right speed", m_right.get() * -1);
-    SmartDashboard.putNumber("heading", 90);
   }
 
 }

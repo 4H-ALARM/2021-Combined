@@ -29,6 +29,7 @@ import frc.robot.commands.AimToPos;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.StopAim;
 import frc.robot.commands.StopDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.Constants.*;
 import frc.robot.commands.JoystickDrive;
@@ -148,5 +149,9 @@ public class RobotContainer {
   public AutoDriveDS getAutoCommandDS() {
     // An ExampleCommand will run in autonomous
     return m_aDS;
+  }
+
+  public void updateDash(){
+    SmartDashboard.putNumber("heading", joyStick.getDirectionDegrees());
   }
 }
