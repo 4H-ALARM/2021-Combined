@@ -16,6 +16,8 @@ import frc.robot.subsystems.DriveSub;
 import frc.robot.commands.AutoDriveDS;
 import frc.robot.commands.Drive;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.Feed;
 import frc.robot.commands.FeedStop;
 import frc.robot.commands.HoldandShoot;
@@ -30,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.StopAim;
 import frc.robot.commands.StopDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.DriveBackwards;
 
 import static frc.robot.Constants.*;
 import frc.robot.commands.JoystickDrive;
@@ -67,6 +70,13 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    // make shuffle board tab
+    ShuffleboardTab tab = Shuffleboard.getTab("Drive Tab");
+    Shuffleboard.selectTab("Drive Tab");
+    // make button to drive backwards
+    SmartDashboard.putData("Drive Backwards: ", new DriveBackwards(m_drivesub));
+    // make button to stop driving
+    SmartDashboard.putData("Stop Drive: ", new StopDrive(m_drivesub));
 
     driveCommand = new JoystickDrive(m_drivesub, () -> joyStick.getY(), () -> joyStick.getX());
     
